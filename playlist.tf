@@ -1,7 +1,13 @@
 variable "artist" {
   description = "The name of the artist to create a playlist for"
   type        = string
-  default     = "Eminem"  # Default artist name
+  default     = "eminem"  # Default artist name
+}
+
+variable "num_tracks" {
+  description = "The number of tracks to add to the playlist"
+  type        = number
+  default     = 10  # Default number of tracks
 }
 
 data "spotify_search_track" "search" {
@@ -11,11 +17,6 @@ data "spotify_search_track" "search" {
 resource "spotify_playlist" "checkPlaylist" {
   name   = "${var.artist} Playlist"
   tracks = [
-    data.spotify_search_track.search.tracks[0].id,
-    data.spotify_search_track.search.tracks[1].id,
-    data.spotify_search_track.search.tracks[2].id,
-    data.spotify_search_track.search.tracks[3].id,
-    data.spotify_search_track.search.tracks[4].id,
-    data.spotify_search_track.search.tracks[5].id
+    for i in range(var.num_tracks) : data.spotify_search_track.search.tracks[i].id
   ]
 }
