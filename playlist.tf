@@ -1,28 +1,24 @@
-variable "artists" {
-  description = "List of artists to create playlists for"
-  type        = list(string)
-  default     = ["eminem", "ed sheeran", "adele"]  # Example artists
+variable "artist" {
+  description = "The name of the artist to create a playlist for"
+  type        = string
 }
 
 variable "num_tracks" {
   description = "The number of tracks to add to each playlist"
   type        = number
-  default     = 6
+  default     = 5
 }
 
-# Create a playlist for each artist
-resource "spotify_playlist" "artist_playlists" {
-  for_each = toset(var.artists)
-
-  name   = "${each.key} Playlist"
-  tracks = [
-    for i in range(var.num_tracks) : data.spotify_search_track.search[each.key].tracks[i].id
-  ]
-}
-
-# Data source for each artist
+# Data source for the specified artist
 data "spotify_search_track" "search" {
-  for_each = toset(var.artists)
+  artist = var.artist
+}
 
-  artist = each.key
+# Create a playlist for the specified artist
+resource "spotify_playlist" "artist_playlist" {
+  name   = "${var.artist} Playlist"
+  public = false  # Keep the playlist private to avoid following requirement
+  tracks = [
+    for i in range(var.num_tracks) : data.spotify_search_track.search.tracks[i].id
+  ]
 }
