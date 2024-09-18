@@ -7,7 +7,7 @@ variable "artists" {
 variable "num_tracks" {
   description = "The number of tracks to add to each playlist"
   type        = number
-  default     = 5
+  default     = 6
 }
 
 # Create a playlist for each artist
