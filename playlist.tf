@@ -1,7 +1,7 @@
 variable "artist" {
   description = "The name of the artist to create a playlist for"
   type        = string
-  default     = "eyal golan"  # Default artist name
+  default     = "eminem"  # Default artist name
 }
 
 data "spotify_search_track" "search" {
