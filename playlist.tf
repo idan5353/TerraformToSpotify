@@ -1,22 +1,28 @@
-variable "artist" {
-  description = "The name of the artist to create a playlist for"
-  type        = string
-  default     = "eminem"  # Default artist name
+variable "artists" {
+  description = "List of artists to create playlists for"
+  type        = list(string)
+  default     = ["eminem", "ed sheeran", "adele"]  # Example artists
 }
 
 variable "num_tracks" {
-  description = "The number of tracks to add to the playlist"
+  description = "The number of tracks to add to each playlist"
   type        = number
-  default     = 10  # Default number of tracks
+  default     = 5
 }
 
-data "spotify_search_track" "search" {
-  artist = var.artist
-}
+# Create a playlist for each artist
+resource "spotify_playlist" "artist_playlists" {
+  for_each = toset(var.artists)
 
-resource "spotify_playlist" "checkPlaylist" {
-  name   = "${var.artist} Playlist"
+  name   = "${each.key} Playlist"
   tracks = [
-    for i in range(var.num_tracks) : data.spotify_search_track.search.tracks[i].id
+    for i in range(var.num_tracks) : data.spotify_search_track.search[each.key].tracks[i].id
   ]
+}
+
+# Data source for each artist
+data "spotify_search_track" "search" {
+  for_each = toset(var.artists)
+
+  artist = each.key
 }
