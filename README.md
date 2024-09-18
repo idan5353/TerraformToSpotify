@@ -29,6 +29,11 @@ This Terraform project allows users to create a Spotify playlist based on a spec
 3. Run `terraform init` to initialize the project.
 4. Execute `terraform apply` to create the playlist on Spotify.
 
+## 🚀 Screenshots:
+![צילום מסך 2024-09-18 162948](https://github.com/user-attachments/assets/2b87d0df-df2b-4cc0-bcc3-b1e48f46f500)
+
+   
+
 ## 🤝 Contributing
 
 Feel free to fork the repository and submit pull requests for enhancements or bug fixes!
