@@ -5,16 +5,19 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); // Serve static files from the "public" directory
 
+// Home route
 app.get('/', (req, res) => {
     sendForm(res, '');
 });
 
 let playlistCounter = 1; // Counter for unique suffixes
 
+// Create playlist route
 app.post('/create-playlist', (req, res) => {
     const artist = req.body.artist;
     const numTracks = req.body.num_tracks;
@@ -33,7 +36,7 @@ app.post('/create-playlist', (req, res) => {
         const playlistUrl = playlistUrlMatch ? playlistUrlMatch[0] : '';
 
         const message = playlistUrl ? 
-            `Playlist created for ${artist} with ${numTracks} tracks! <a href="${playlistUrl}">View Playlist</a>` :
+            `Playlist created for ${artist} with ${numTracks} tracks! <a href="${playlistUrl}" style="color: #1db954;">View Playlist</a>` :
             `Playlist created for ${artist} with ${numTracks} tracks!`;
 
         sendForm(res, message);
@@ -42,8 +45,8 @@ app.post('/create-playlist', (req, res) => {
 
 // Function to send the form with an optional message
 function sendForm(res, message) {
-    res.send(`
-        <!DOCTYPE html>
+    res.send(
+        `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -52,24 +55,26 @@ function sendForm(res, message) {
             <link rel="stylesheet" href="/styles.css">
         </head>
         <body>
-            <div class="container">
+            <img src="/logo.png" alt="Spotify Logo" class="spotify-logo">
+            <div class="form-container">
                 <h1>Create Your Spotify Playlist</h1>
-                ${message ? `<p>${message}</p>` : ''}
-                <form action="/create-playlist" method="POST">
+                ${message ? `<p class="message">${message}</p>` : ''}
+                <form action="/create-playlist" method="POST" class="playlist-form">
                     <label for="artist">Artist Name:</label>
-                    <input type="text" name="artist" required placeholder="Enter artist name">
+                    <input type="text" name="artist" required placeholder="Enter artist name" class="input-field">
                     
                     <label for="num_tracks">Number of Tracks:</label>
-                    <input type="number" name="num_tracks" min="1" max="30" required placeholder="Enter number of tracks">
+                    <input type="number" name="num_tracks" min="1" max="30" required placeholder="Enter number of tracks" class="input-field">
                     
-                    <input type="submit" value="Create Playlist">
+                    <input type="submit" value="Create Playlist" class="submit-button">
                 </form>
             </div>
         </body>
-        </html>
-    `);
+        </html>`
+    );
 }
 
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 });

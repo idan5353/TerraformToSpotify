@@ -1,7 +1,7 @@
 /* public/styles.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121212; /* Dark background */
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,23 +10,52 @@ body {
     height: 100vh;
 }
 
-.container {
-    background-color: white;
+.spotify-logo {
+    position: absolute; /* Position it absolutely */
+    top: 20px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    width: 100px; /* Set width (adjust as needed) */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.main-container {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+.image-container {
+    flex: 1; /* Take up space proportionally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-label {
+.spotify-logo {
+    max-width: 200px; /* Set a max width for the logo */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.form-container {
+    
+    background-color: #282828; /* Dark container */
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #1db954; /* Spotify green */
+    margin-bottom: 20px; /* Add margin for spacing */
+}
+
+.label {
     margin: 10px 0 5px;
     display: block;
-    color: #555;
+    color: #ffffff; /* Light text color */
 }
 
 input[type="text"],
@@ -35,17 +64,30 @@ input[type="submit"] {
     width: 100%;
     padding: 10px;
     margin: 5px 0 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #535353; /* Dark border */
     border-radius: 4px;
+    background-color: #121212; /* Dark input background */
+    color: #ffffff; /* Light text color */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #1db954; /* Highlight on focus */
+    outline: none; /* Remove outline */
 }
 
 input[type="submit"] {
-    background-color: #28a745;
+    background-color: #1db954; /* Spotify button color */
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
 }
 
 input[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #1aa34a; /* Darker green on hover */
+}
+
+input[type="submit"]:active {
+    background-color: #1a8a39; /* Darker green when active */
 }
