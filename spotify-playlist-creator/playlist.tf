@@ -21,6 +21,11 @@ variable "song_selection" {
   type        = string
 }
 
+variable "playlist_name" {
+  description = "The name of the playlist"
+  type        = string
+}
+
 # Data source for the specified artist
 data "spotify_search_track" "search" {
   artist = var.artist
@@ -46,7 +51,7 @@ locals {
 
 # Create a playlist for the specified artist
 resource "spotify_playlist" "artist_playlist" {
-  name   = "${var.artist} Playlist - ${var.unique_suffix}"  # Unique name using the suffix
+  name   = var.playlist_name  # Use user-defined playlist name
   public = false
   tracks = [for track in local.selected_tracks : track.id]
 }
