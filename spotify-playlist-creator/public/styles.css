@@ -18,32 +18,13 @@ body {
     height: auto; /* Maintain aspect ratio */
 }
 
-.main-container {
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-}
-
-.image-container {
-    flex: 1; /* Take up space proportionally */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.spotify-logo {
-    max-width: 200px; /* Set a max width for the logo */
-    height: auto; /* Maintain aspect ratio */
-}
-
 .form-container {
-    
     background-color: #282828; /* Dark container */
     color: white;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     padding: 30px;
+    width: 300px; /* Set a fixed width for the form */
 }
 
 h1 {
@@ -60,8 +41,9 @@ h1 {
 
 input[type="text"],
 input[type="number"],
-input[type="submit"] {
-    width: 100%;
+input[type="submit"],
+select {
+    width: 100%; /* Full width for inputs */
     padding: 10px;
     margin: 5px 0 20px;
     border: 1px solid #535353; /* Dark border */
@@ -71,7 +53,8 @@ input[type="submit"] {
 }
 
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+select:focus {
     border-color: #1db954; /* Highlight on focus */
     outline: none; /* Remove outline */
 }
@@ -90,4 +73,10 @@ input[type="submit"]:hover {
 
 input[type="submit"]:active {
     background-color: #1a8a39; /* Darker green when active */
+}
+
+.message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1db954; /* Spotify green for success messages */
 }

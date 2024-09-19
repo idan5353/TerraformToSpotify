@@ -21,11 +21,12 @@ let playlistCounter = 1; // Counter for unique suffixes
 app.post('/create-playlist', (req, res) => {
     const artist = req.body.artist;
     const numTracks = req.body.num_tracks;
+    const songSelection = req.body.song_selection; // Get the song selection
     const uniqueSuffix = `${Date.now()}-${playlistCounter++}`; // Create a unique suffix
 
     const tfDirectory = path.join(__dirname);
 
-    exec(`terraform apply -var="artist=${artist}" -var="num_tracks=${numTracks}" -var="unique_suffix=${uniqueSuffix}" -auto-approve`, { cwd: tfDirectory }, (error, stdout, stderr) => {
+    exec(`terraform apply -var="artist=${artist}" -var="num_tracks=${numTracks}" -var="song_selection=${songSelection}" -var="unique_suffix=${uniqueSuffix}" -auto-approve`, { cwd: tfDirectory }, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return sendForm(res, 'Error creating playlist');
@@ -66,6 +67,12 @@ function sendForm(res, message) {
                     <label for="num_tracks">Number of Tracks:</label>
                     <input type="number" name="num_tracks" min="1" max="30" required placeholder="Enter number of tracks" class="input-field">
                     
+                    <label for="song_selection">Select Song Type:</label>
+                    <select name="song_selection" required class="input-field">
+                        <option value="random">Random Songs</option>
+                        <option value="popular">Most Popular Songs</option>
+                    </select>
+
                     <input type="submit" value="Create Playlist" class="submit-button">
                 </form>
             </div>
